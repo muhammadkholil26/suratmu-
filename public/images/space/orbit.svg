@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" fill="none" stroke="#D6D6D1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Sweeping Celestial Orbit with Capsule Nodes -->
+  <path d="M20 90 C 80 40, 150 15, 230 25 C 270 30, 290 60, 260 95 C 220 130, 130 115, 70 85" />
+  <path d="M40 100 C 100 55, 170 30, 240 40" stroke-dasharray="3 5" opacity="0.6" />
+  <!-- Node dots -->
+  <circle cx="20" cy="90" r="3.5" fill="#D6D6D1" />
+  <circle cx="160" cy="22" r="2.5" fill="#D6D6D1" />
+  <circle cx="260" cy="95" r="3" fill="#D6D6D1" />
+</svg>
+

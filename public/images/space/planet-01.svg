@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="#D6D6D1" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Ringed Editorial Planet -->
+  <circle cx="100" cy="100" r="42" stroke="#D6D6D1" fill="#fcfbf8" />
+  <!-- Surface contours -->
+  <path d="M68 85 Q100 115 136 108" />
+  <path d="M78 118 Q102 132 126 124" />
+  <path d="M62 98 Q100 128 138 120" stroke-dasharray="2 4" opacity="0.6" />
+  <!-- Planetary Rings -->
+  <ellipse cx="100" cy="100" rx="88" ry="24" transform="rotate(-24 100 100)" />
+  <ellipse cx="100" cy="100" rx="98" ry="27" transform="rotate(-24 100 100)" stroke-dasharray="3 5" opacity="0.75" />
+  <!-- Moon -->
+  <circle cx="168" cy="55" r="3.5" fill="#D6D6D1" />
+  <ellipse cx="100" cy="100" rx="114" ry="52" transform="rotate(-24 100 100)" stroke-dasharray="2 6" opacity="0.4" />
+</svg>
+

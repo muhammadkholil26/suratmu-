@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" opacity="0.35">
+  <!-- Subtle Constellation Background Matrix -->
+  <circle cx="45" cy="60" r="1" fill="#727a75" />
+  <circle cx="120" cy="30" r="1.2" fill="#727a75" />
+  <circle cx="210" cy="75" r="0.8" fill="#727a75" />
+  <circle cx="340" cy="40" r="1.5" fill="#727a75" />
+  <circle cx="300" cy="140" r="1" fill="#727a75" />
+  <circle cx="160" cy="180" r="1.2" fill="#727a75" />
+  <circle cx="50" cy="220" r="0.9" fill="#727a75" />
+  <circle cx="110" cy="290" r="1.4" fill="#727a75" />
+  <circle cx="250" cy="270" r="1" fill="#727a75" />
+  <circle cx="360" cy="310" r="1.2" fill="#727a75" />
+  <circle cx="190" cy="360" r="0.8" fill="#727a75" />
+  <circle cx="30" cy="370" r="1" fill="#727a75" />
+  <line x1="45" y1="60" x2="120" y2="30" stroke="#D6D6D1" stroke-width="0.6" stroke-dasharray="2 4" />
+  <line x1="210" y1="75" x2="300" y2="140" stroke="#D6D6D1" stroke-width="0.6" stroke-dasharray="2 4" />
+  <line x1="160" y1="180" x2="250" y2="270" stroke="#D6D6D1" stroke-width="0.6" stroke-dasharray="2 4" />
+</svg>
+

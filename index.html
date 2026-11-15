@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f0">
+  <meta name="description" content="Sebuah tempat kecil untuk menyimpan kata-kata yang belum waktunya disampaikan.">
+  <title>Pesan Untuk Masa Depan</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f5f0;
+      --surface: #fffefa;
+      --surface-muted: #eeede6;
+      --ink: #252b29;
+      --muted: #727a74;
+      --line: #e2e2da;
+      --accent: #527b6b;
+      --accent-dark: #3d6253;
+      --accent-soft: #e6eee8;
+      --gold: #b48651;
+      --danger: #a44e48;
+      --shadow: 0 18px 55px rgba(37, 43, 41, .07);
+      --radius: 22px;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #1c211f;
+      --surface: #252b28;
+      --surface-muted: #303733;
+      --ink: #eef0eb;
+      --muted: #a5aea7;
+      --line: #3b443e;
+      --accent: #9ab9a8;
+      --accent-dark: #b7d0c0;
+      --accent-soft: #34443b;
+      --gold: #d3aa76;
+      --danger: #e39b94;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .2);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      transition: background .25s ease, color .25s ease;
+    }
+    button, input, textarea, select { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    .serif { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+    .container { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+    .site-header {
+      position: sticky;
+      z-index: 5;
+      top: 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+      background: color-mix(in srgb, var(--paper) 88%, transparent);
+      backdrop-filter: blur(14px);
+    }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 600; letter-spacing: -.02em; }
+    .brand-mark {
+      width: 35px; height: 35px; display: grid; place-items: center; border-radius: 12px;
+      background: var(--accent-soft); color: var(--accent-dark);
+    }
+    .brand-mark svg { width: 19px; height: 19px; }
+    .nav-right, .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a { color: var(--muted); font-size: 13px; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .icon-button {
+      width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line);
+      border-radius: 50%; background: var(--surface); cursor: pointer; transition: transform .2s, border-color .2s;
+    }
+    .icon-button:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .icon-button svg { width: 17px; height: 17px; }
+
+    .hero { position: relative; overflow: hidden; padding: 104px 0 93px; }
+    .hero-celestial-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; width: 100%; height: 100%; }
+    .celestial-svg { width: 100%; height: 100%; display: block; }
+    .hero-content { position: relative; z-index: 2; }
+    .hero::before {
+      position: absolute; z-index: -1; top: 40px; right: -100px; width: 440px; height: 440px;
+      border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent); border-radius: 50%;
+      content: "";
+    }
+    .hero::after {
+      position: absolute; z-index: -1; top: 86px; right: -55px; width: 350px; height: 350px;
+      border: 1px solid color-mix(in srgb, var(--accent) 10%, transparent); border-radius: 50%;
+      content: "";
+    }
+    .hero-content { max-width: 700px; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 20px; color: var(--accent-dark); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { width: 25px; height: 1px; background: var(--accent); content: ""; }
+    h1 { max-width: 680px; margin: 0; font-size: clamp(44px, 7vw, 76px); line-height: 1.05; letter-spacing: -.055em; }
+    h1 em { color: var(--accent); font-style: normal; }
+    .hero-copy { max-width: 530px; margin: 24px 0 29px; color: var(--muted); font-size: 16px; line-height: 1.85; }
+    .hero-actions { display: flex; align-items: center; gap: 19px; flex-wrap: wrap; }
+    .button {
+      min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 0 21px; border: 1px solid transparent; border-radius: 999px;
+      background: var(--accent); color: #fff; cursor: pointer; font-size: 13px; font-weight: 600;
+      text-decoration: none; transition: background .2s, transform .2s, border-color .2s;
+    }
+    .button:hover { transform: translateY(-2px); background: var(--accent-dark); }
+    .button svg { width: 16px; height: 16px; }
+    .button-secondary { border-color: var(--line); background: var(--surface); color: var(--ink); }
+    .button-secondary:hover { border-color: var(--accent); background: var(--surface); }
+    .button-quiet { min-height: 40px; padding: 0 14px; background: transparent; color: var(--muted); }
+    .button-quiet:hover { background: var(--surface-muted); color: var(--ink); }
+    .hero-note { color: var(--muted); font-family: Georgia, serif; font-size: 13px; font-style: italic; }
+    .hero-art {
+      position: absolute; top: 112px; right: max(calc((100vw - 1120px) / 2 + 38px), 8%);
+      width: 170px; height: 145px; color: var(--accent); opacity: .76;
+      transform: rotate(7deg);
+    }
+    .hero-art .envelope { position: absolute; inset: 20px 8px 15px; border: 1px solid currentColor; border-radius: 4px; background: var(--surface); box-shadow: var(--shadow); }
+    .hero-art .envelope::before, .hero-art .envelope::after {
+      position: absolute; bottom: 0; width: 70%; height: 70%; border-bottom: 1px solid currentColor; content: "";
+    }
+    .hero-art .envelope::before { left: 0; border-right: 1px solid currentColor; transform: skewY(-32deg); transform-origin: bottom left; }
+    .hero-art .envelope::after { right: 0; border-left: 1px solid currentColor; transform: skewY(32deg); transform-origin: bottom right; }
+    .hero-art .stamp { position: absolute; top: 0; right: 0; width: 37px; height: 44px; border: 1px solid var(--gold); background: var(--paper); }
+    .hero-art .orbit { position: absolute; top: -25px; left: -25px; width: 55px; height: 55px; border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent); border-radius: 50%; }
+
+    .section { padding: 78px 0; }
+    .section-top { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+    .section-kicker { margin: 0 0 7px; color: var(--accent-dark); font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(31px, 4vw, 43px); line-height: 1.15; letter-spacing: -.04em; }
+    .section-desc { max-width: 390px; margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+    .count-label { color: var(--muted); font-size: 13px; white-space: nowrap; }
+    .message-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; }
+    .message-card {
+      display: flex; min-height: 250px; flex-direction: column; padding: 22px;
+      border: 1px solid var(--line); border-radius: 17px; background: var(--surface);
+      box-shadow: 0 5px 25px rgba(37, 43, 41, .025); animation: rise .35s ease both;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .message-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); box-shadow: var(--shadow); }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .category { padding: 5px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-dark); font-size: 11px; }
+    .saved-mark { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: 10px; }
+    .saved-mark svg { width: 13px; height: 13px; color: var(--accent); }
+    .message-card h3 { overflow-wrap: anywhere; margin: 19px 0 4px; font-family: Georgia, serif; font-size: 21px; font-weight: 400; line-height: 1.35; }
+    .recipient { margin: 0; color: var(--muted); font-size: 12px; }
+    .card-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; padding: 20px 0 16px; }
+    .date-label { display: block; margin-bottom: 3px; color: var(--muted); font-size: 10px; }
+    .date-value { font-size: 11px; font-weight: 600; }
+    .status { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; }
+    .status::before { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); content: ""; }
+    .status-ready { color: var(--accent-dark); }
+    .status-ready::before { background: var(--accent); }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; }
+    .card-actions { display: flex; align-items: center; gap: 3px; }
+    .text-button { padding: 6px 8px; border: 0; border-radius: 7px; background: transparent; color: var(--muted); cursor: pointer; font-size: 11px; }
+    .text-button:hover { background: var(--surface-muted); color: var(--ink); }
+    .text-button.delete:hover { color: var(--danger); }
+    .empty-state { padding: 57px 20px; border: 1px dashed var(--line); border-radius: var(--radius); background: color-mix(in srgb, var(--surface) 55%, transparent); text-align: center; }
+    .empty-icon { width: 52px; height: 52px; display: grid; place-items: center; margin: 0 auto 15px; border-radius: 17px; background: var(--accent-soft); color: var(--accent-dark); }
+    .empty-icon svg { width: 24px; height: 24px; }
+    .empty-state h3 { margin: 0; font-family: Georgia, serif; font-size: 23px; font-weight: 400; }
+    .empty-state p { margin: 7px 0 20px; color: var(--muted); font-size: 13px; }
+
+    .privacy { padding: 0 0 75px; }
+    .privacy-box { display: flex; align-items: center; gap: 16px; padding: 21px 24px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+    .privacy-icon { width: 38px; height: 38px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent-dark); }
+    .privacy-icon svg { width: 18px; height: 18px; }
+    .privacy-box p { margin: 0; color: var(--muted); font-size: 12px; }
+    .privacy-box strong { color: var(--ink); font-weight: 600; }
+    footer { border-top: 1px solid var(--line); padding: 26px 0 30px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-brand { font-size: 13px; font-weight: 600; }
+    .footer-quote, .copyright { color: var(--muted); font-size: 11px; }
+    .footer-quote { margin: 3px 0 0; font-family: Georgia, serif; font-style: italic; }
+
+    .form-panel { display: none; padding: 40px 0 76px; }
+    .form-panel.visible { display: block; animation: rise .3s ease both; }
+    .form-wrap { width: min(760px, 100%); margin: 0 auto; }
+    .back-button { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 25px; padding: 7px 0; border: 0; background: none; color: var(--muted); cursor: pointer; font-size: 12px; }
+    .back-button:hover { color: var(--ink); }
+    .back-button svg { width: 15px; height: 15px; }
+    .form-heading { margin-bottom: 25px; }
+    .form-heading h2 { font-family: Georgia, serif; }
+    .form-heading p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
+    .form-card { padding: clamp(22px, 5vw, 38px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 19px 17px; }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { display: block; margin-bottom: 7px; font-size: 12px; font-weight: 600; }
+    .field input, .field textarea, .field select {
+      width: 100%; min-height: 46px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 10px;
+      outline: none; background: var(--paper); color: var(--ink); font-size: 13px; transition: border-color .2s, box-shadow .2s;
+    }
+    .field textarea { min-height: 185px; resize: vertical; line-height: 1.75; }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+    .field input[readonly] { color: var(--muted); }
+    .field-help { display: flex; justify-content: space-between; gap: 10px; margin-top: 5px; color: var(--muted); font-size: 10px; }
+    .form-bottom { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 24px; }
+    .form-privacy { max-width: 270px; margin: 0; color: var(--muted); font-size: 10px; }
+
+    .modal-backdrop { position: fixed; z-index: 10; inset: 0; display: none; align-items: center; justify-content: center; overflow-y: auto; padding: 24px; background: rgba(15, 20, 17, .55); backdrop-filter: blur(5px); }
+    .modal-backdrop.open { display: flex; animation: fade .2s ease both; }
+    .modal { position: relative; width: min(650px, 100%); max-height: min(85vh, 900px); overflow-y: auto; padding: clamp(24px, 5vw, 45px); border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: 0 25px 90px rgba(0, 0, 0, .25); animation: rise .25s ease both; }
+    .modal-close { position: absolute; top: 16px; right: 16px; }
+    .modal-kicker { margin: 0 0 8px; color: var(--accent-dark); font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+    .modal h2 { padding-right: 28px; font-family: Georgia, serif; font-size: clamp(29px, 5vw, 39px); overflow-wrap: anywhere; }
+    .modal-meta { margin: 8px 0 22px; color: var(--muted); font-size: 12px; }
+    .locked-box { margin-top: 23px; padding: 22px; border: 1px solid var(--line); border-radius: 13px; background: var(--paper); text-align: center; }
+    .locked-box svg { width: 23px; height: 23px; color: var(--gold); }
+    .locked-box p { margin: 7px 0 1px; font-family: Georgia, serif; font-size: 20px; }
+    .locked-box span { color: var(--muted); font-size: 12px; }
+    .letter {
+      margin-top: 22px; padding: clamp(22px, 5vw, 39px); border: 1px solid color-mix(in srgb, var(--gold) 30%, var(--line));
+      border-radius: 5px; background: color-mix(in srgb, var(--surface) 90%, var(--gold) 10%);
+      box-shadow: 0 12px 35px rgba(37, 43, 41, .07); animation: letter-open .65s cubic-bezier(.2,.8,.2,1) both;
+    }
+    .letter-to { margin: 0 0 21px; font-family: Georgia, serif; font-size: 19px; }
+    .letter-intro { margin: 0 0 17px; color: var(--muted); font-family: Georgia, serif; font-size: 15px; font-style: italic; }
+    .letter-body { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-family: Georgia, serif; font-size: 16px; line-height: 1.95; }
+    .letter-signature { margin: 25px 0 0; font-family: Georgia, serif; font-size: 15px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 19px; flex-wrap: wrap; }
+    .toast { position: fixed; z-index: 20; right: 24px; bottom: 24px; max-width: calc(100% - 48px); padding: 13px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); color: var(--ink); font-size: 13px; opacity: 0; pointer-events: none; transform: translateY(10px); transition: opacity .2s, transform .2s; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes letter-open { from { opacity: 0; transform: translateY(14px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    @media (max-width: 800px) {
+      .hero { padding: 82px 0 72px; }
+      .hero-art { right: 7%; top: 130px; transform: scale(.78) rotate(7deg); transform-origin: top right; }
+      .hero-content { max-width: 600px; }
+      .hero-copy { max-width: 450px; }
+      .message-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(100% - 34px, 460px); }
+      .nav { min-height: 65px; }
+      .brand { font-size: 13px; }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 11px; }
+      .hero { padding: 71px 0 63px; }
+      .hero::before, .hero::after { top: 30px; right: -230px; }
+      .hero-art { top: auto; right: 2%; bottom: 35px; transform: scale(.55) rotate(7deg); opacity: .32; }
+      .hero-content { position: relative; z-index: 1; }
+      h1 { max-width: 440px; font-size: clamp(43px, 12vw, 61px); }
+      .hero-copy { max-width: 390px; font-size: 14px; }
+      .hero-actions { gap: 12px; }
+      .hero-note { width: 100%; }
+      .section { padding: 59px 0; }
+      .section-top { align-items: start; flex-direction: column; gap: 10px; margin-bottom: 21px; }
+      .message-grid { grid-template-columns: 1fr; }
+      .message-card { min-height: 236px; }
+      .privacy { padding-bottom: 52px; }
+      .privacy-box { align-items: start; padding: 17px; }
+      .footer-inner { align-items: start; flex-direction: column; gap: 9px; }
+      .copyright { margin: 0; }
+      .form-panel { padding: 29px 0 55px; }
+      .form-grid { grid-template-columns: 1fr; gap: 15px; }
+      .field.full { grid-column: auto; }
+      .form-bottom { align-items: start; flex-direction: column-reverse; }
+      .form-bottom .button { width: 100%; }
+      .form-privacy { max-width: none; }
+      .modal-backdrop { align-items: end; padding: 10px; }
+      .modal { max-height: 90vh; padding: 27px 21px; border-radius: 18px 18px 10px 10px; }
+      .modal-close { top: 10px; right: 10px; }
+      .modal-actions .button { flex: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Navigasi utama">
+      <a class="brand" href="#beranda" aria-label="Pesan Untuk Masa Depan, beranda">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6.5h16v12H4z"/><path d="m4.5 7 7.5 6 7.5-6"/></svg>
+        </span>
+        <span>Pesan Untuk Masa Depan</span>
+      </a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#beranda">Beranda</a>
+          <a href="#pesanku">Pesanku urang awak</a>
+        </div>
+        <button id="themeToggle" class="icon-button" type="button" aria-label="Aktifkan mode gelap" title="Ganti tema">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="beranda" class="hero">
+      <div class="hero-celestial-canvas" aria-hidden="true">
+        <svg class="celestial-svg" viewBox="0 0 1200 660" fill="none" stroke="#D6D6D1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 60 520 C 220 500, 390 400, 540 270 C 670 160, 840 95, 990 115 C 1100 130, 1160 210, 1120 320 C 1080 430, 950 490, 810 470" />
+          <path d="M 120 560 C 270 540, 430 450, 580 320 C 710 200, 880 145, 1030 160 C 1120 170, 1170 230, 1140 310" stroke-dasharray="3 6" opacity="0.7" />
+          <circle cx="60" cy="520" r="3.5" fill="#D6D6D1" /><circle cx="60" cy="520" r="8" stroke-dasharray="2 3" />
+          <line x1="42" y1="520" x2="52" y2="520" /><line x1="68" y1="520" x2="78" y2="520" />
+          <text x="32" y="546" fill="#D6D6D1" font-family="monospace" font-size="9" letter-spacing="0.16em" stroke="none">HARI INI</text>
+          <circle cx="540" cy="270" r="2.5" fill="#D6D6D1" /><circle cx="540" cy="270" r="6" stroke-dasharray="1.5 3" />
+          <circle cx="990" cy="115" r="3.5" fill="#D6D6D1" /><circle cx="990" cy="115" r="9" stroke-dasharray="2 3" />
+          <text x="1014" y="98" fill="#D6D6D1" font-family="monospace" font-size="9" letter-spacing="0.16em" stroke="none">MASA DEPAN</text>
+          <g transform="translate(980, 115)">
+            <circle cx="0" cy="0" r="32" />
+            <path d="M -26 -12 Q 0 10 28 4" /><path d="M -18 14 Q 2 24 22 18" />
+            <ellipse cx="0" cy="0" rx="68" ry="17" transform="rotate(-22)" />
+            <ellipse cx="0" cy="0" rx="78" ry="19.5" transform="rotate(-22)" stroke-dasharray="3 5" opacity="0.65" />
+            <circle cx="64" cy="-32" r="2.5" fill="#D6D6D1" />
+          </g>
+          <g transform="translate(710, 85)">
+            <circle cx="0" cy="0" r="22" /><circle cx="0" cy="0" r="17" stroke-dasharray="2 3" opacity="0.75" />
+            <circle cx="0" cy="0" r="1.5" fill="#D6D6D1" /><line x1="0" y1="0" x2="0" y2="-12" /><line x1="0" y1="0" x2="9" y2="0" />
+            <line x1="0" y1="-22" x2="0" y2="-18" /><line x1="22" y1="0" x2="18" y2="0" /><line x1="0" y1="22" x2="0" y2="18" /><line x1="-22" y1="0" x2="-18" y2="0" />
+          </g>
+          <path d="M 110 52 Q 110 60 118 60 Q 110 60 110 68 Q 110 60 102 60 Q 110 60 110 52 Z" />
+          <path d="M 110 60 L 160 88 L 220 72" stroke-dasharray="2 3" opacity="0.6" />
+          <circle cx="160" cy="88" r="1.5" fill="#D6D6D1" /><circle cx="220" cy="72" r="2" fill="#D6D6D1" />
+          <path d="M 460 40 Q 460 46 466 46 Q 460 46 460 52 Q 460 46 454 46 Q 460 46 460 40 Z" />
+          <path d="M 1145 220 Q 1145 227 1152 227 Q 1145 227 1145 234 Q 1145 227 1138 227 Q 1145 227 1145 220 Z" />
+        </svg>
+      </div>
+      <div class="container">
+        <div class="hero-content">
+          <p class="eyebrow">Sebuah ruang untuk nanti</p>
+          <h1 class="serif">Tinggalkan Pesan <em>Untuk Masa Depan.</em></h1>
+          <p class="hero-copy">Tulis sesuatu yang ingin kamu sampaikan. Mungkin untuk dirimu sendiri, seseorang yang kamu sayangi, atau seseorang yang ingin kamu temui lagi suatu hari nanti.</p>
+          <div class="hero-actions">
+            <button class="button" type="button" data-compose>
+              Tulis Pesan
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <span class="hero-note">“Beberapa pesan tidak harus dikirim hari ini.”</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><span class="orbit"></span><span class="envelope"></span><span class="stamp"></span></div>
+    </section>
+
+    <section id="compose" class="form-panel" aria-labelledby="formTitle">
+      <div class="container form-wrap">
+        <button type="button" class="back-button" id="backButton">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m15 18-6-6 6-6M9 12h11"/></svg>
+          Kembali ke beranda
+        </button>
+        <div class="form-heading">
+          <p class="section-kicker" id="formKicker">Mulai menulis</p>
+          <h2 class="serif" id="formTitle">Simpan kata-katamu.</h2>
+          <p>Tak perlu sempurna. Cukup tulis apa yang ingin kamu ingat.</p>
+        </div>
+        <form id="messageForm" class="form-card">
+          <input type="hidden" id="messageId">
+          <div class="form-grid">
+            <div class="field">
+              <label for="sender">Nama pengirim</label>
+              <input id="sender" name="sender" type="text" maxlength="80" placeholder="Namamu" required>
+            </div>
+            <div class="field">
+              <label for="recipient">Nama penerima</label>
+              <input id="recipient" name="recipient" type="text" maxlength="80" placeholder="Untuk siapa pesan ini?" required>
+            </div>
+            <div class="field full">
+              <label for="title">Judul pesan</label>
+              <input id="title" name="title" type="text" maxlength="100" placeholder="Sebuah judul kecil untuk pesanmu" required>
+            </div>
+            <div class="field full">
+              <label for="body">Isi pesan</label>
+              <textarea id="body" name="body" maxlength="5000" placeholder="Mulailah dari hal yang paling ingin kamu sampaikan..." required></textarea>
+              <div class="field-help"><span>Pesanmu hanya tersimpan di browser ini.</span><span id="charCount" aria-live="polite">0 / 5000</span></div>
+            </div>
+            <div class="field">
+              <label for="createdAt">Tanggal pesan dibuat</label>
+              <input id="createdAt" name="createdAt" type="date" readonly required>
+            </div>
+            <div class="field">
+              <label for="openAt">Tanggal pesan ingin dibuka</label>
+              <input id="openAt" name="openAt" type="date" required>
+            </div>
+            <div class="field full">
+              <label for="category">Kategori</label>
+              <select id="category" name="category" required>
+                <option value="Untuk Diriku">Untuk Diriku</option>
+                <option value="Untuk Seseorang">Untuk Seseorang</option>
+                <option value="Untuk Masa Depan">Untuk Masa Depan</option>
+                <option value="Kenangan">Kenangan</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-bottom">
+            <p class="form-privacy">Pesan ini akan tetap ada di browser ini, bahkan setelah kamu menutupnya.</p>
+            <button type="submit" class="button" id="saveButton">Simpan Pesan</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="pesanku" class="section">
+      <div class="container">
+        <div class="section-top">
+          <div>
+            <p class="section-kicker">Kata-kata yang kamu titipkan</p>
+            <h2 class="serif">Pesanku</h2>
+            <p class="section-desc">Setiap pesan menunggu waktunya sendiri.</p>
+          </div>
+          <span id="messageCount" class="count-label" aria-live="polite"></span>
+        </div>
+        <div id="messageList" class="message-grid"></div>
+        <div id="emptyState" class="empty-state" hidden>
+          <span class="empty-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6.5h16v12H4z"/><path d="m4.5 7 7.5 6 7.5-6"/></svg>
+          </span>
+          <h3>Belum ada pesan.</h3>
+          <p>Mungkin sudah waktunya meninggalkan sesuatu untuk masa depan.</p>
+          <button type="button" class="button" data-compose>Tulis Pesan Pertama</button>
+        </div>
+      </div>
+    </section>
+    <section class="privacy">
+      <div class="container">
+        <div class="privacy-box">
+          <span class="privacy-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+          <p><strong>Ruang ini milikmu.</strong> Pesanmu tersimpan secara lokal di browser ini. Tidak ada akun dan tidak ada data yang dikirim ke server.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-brand">Pesan Untuk Masa Depan</div>
+        <p class="footer-quote">Sebuah tempat kecil untuk menyimpan kata-kata yang belum waktunya disampaikan.</p>
+      </div>
+      <p class="copyright">© 2026 Pesan Untuk Masa Depan</p>
+    </div>
+  </footer>
+
+  <div id="modalBackdrop" class="modal-backdrop" role="presentation">
+    <section id="messageModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button id="modalClose" class="icon-button modal-close" type="button" aria-label="Tutup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+      <div id="modalContent"></div>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const STORAGE_KEY = "pesan-untuk-masa-depan";
+      const THEME_KEY = "pesan-untuk-masa-depan-theme";
+      const categories = ["Untuk Diriku", "Untuk Seseorang", "Untuk Masa Depan", "Kenangan", "Lainnya"];
+      const form = document.getElementById("messageForm");
+      const list = document.getElementById("messageList");
+      const emptyState = document.getElementById("emptyState");
+      const count = document.getElementById("messageCount");
+      const modalBackdrop = document.getElementById("modalBackdrop");
+      const modalContent = document.getElementById("modalContent");
+      const toast = document.getElementById("toast");
+      let messages = [];
+      let toastTimer;
+      let lastFocusedElement = null;
+
+      const todayISO = () => {
+        const now = new Date();
+        return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+      };
+
+      const formatDate = (value) => {
+        if (!value) return "—";
+        const parts = value.split("-").map(Number);
+        if (parts.length !== 3 || parts.some(Number.isNaN)) return value;
+        const date = new Date(parts[0], parts[1] - 1, parts[2]);
+        return new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric" }).format(date);
+      };
+
+      const makeId = () => {
+        if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
+        return `pesan-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      };
+
+      const showToast = (message) => {
+        toast.textContent = message;
+        toast.classList.add("show");
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3200);
+      };
+
+      const saveMessages = () => {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+          return true;
+        } catch (error) {
+          console.error("Pesan tidak dapat disimpan ke localStorage.", error);
+          showToast("Pesan tidak dapat disimpan. Periksa ruang penyimpanan browser.");
+          return false;
+        }
+      };
+
+      const loadMessages = () => {
+        try {
+          const stored = localStorage.getItem(STORAGE_KEY);
+          if (!stored) return [];
+          const parsed = JSON.parse(stored);
+          if (!Array.isArray(parsed)) throw new TypeError("Format penyimpanan pesan tidak valid.");
+          return parsed.filter((message) =>
+            message && typeof message.id === "string" &&
+            ["sender", "recipient", "title", "body", "createdAt", "openAt", "category"].every((key) => typeof message[key] === "string")
+          );
+        } catch (error) {
+          console.error("Pesan tersimpan tidak dapat dibaca.", error);
+          showToast("Pesan tersimpan tidak dapat dibaca. Penyimpanan browser mungkin rusak.");
+          return [];
+        }
+      };
+
+      const el = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+      };
+
+      const statusFor = (message) => message.openAt <= todayISO() ? "Sudah bisa dibuka" : "Belum waktunya";
+
+      const renderMessages = () => {
+        list.replaceChildren();
+        messages.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+        emptyState.hidden = messages.length !== 0;
+        count.textContent = messages.length ? `${messages.length} ${messages.length === 1 ? "pesan tersimpan" : "pesan tersimpan"}` : "";
+
+        messages.forEach((message, index) => {
+          const ready = message.openAt <= todayISO();
+          const card = el("article", "message-card");
+          card.style.animationDelay = `${Math.min(index * 45, 220)}ms`;
+
+          const top = el("div", "card-top");
+          top.append(el("span", "category", categories.includes(message.category) ? message.category : "Lainnya"));
+          const saved = el("span", "saved-mark");
+          saved.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12.5 9.5 17 19 7.5"/></svg>';
+          saved.append(document.createTextNode("Tersimpan"));
+          top.append(saved);
+          card.append(top);
+
+          card.append(el("h3", "", message.title));
+          card.append(el("p", "recipient", `Untuk ${message.recipient}`));
+
+          const dates = el("div", "card-dates");
+          const created = el("div");
+          created.append(el("span", "date-label", "DIBUAT PADA"), el("span", "date-value", formatDate(message.createdAt)));
+          const open = el("div");
+          open.append(el("span", "date-label", "DIBUKA PADA"), el("span", "date-value", formatDate(message.openAt)));
+          dates.append(created, open);
+          card.append(dates);
+
+          const footer = el("div", "card-footer");
+          footer.append(el("span", `status${ready ? " status-ready" : ""}`, statusFor(message)));
+          const actions = el("div", "card-actions");
+          const view = el("button", "text-button", "Lihat");
+          view.type = "button";
+          view.addEventListener("click", () => openMessage(message.id));
+          const edit = el("button", "text-button", "Edit");
+          edit.type = "button";
+          edit.addEventListener("click", () => editMessage(message.id));
+          const remove = el("button", "text-button delete", "Hapus");
+          remove.type = "button";
+          remove.addEventListener("click", () => deleteMessage(message.id));
+          actions.append(view, edit, remove);
+          footer.append(actions);
+          card.append(footer);
+          list.append(card);
+        });
+      };
+
+      const showForm = (message = null) => {
+        form.reset();
+        document.getElementById("messageId").value = message ? message.id : "";
+        document.getElementById("sender").value = message ? message.sender : "";
+        document.getElementById("recipient").value = message ? message.recipient : "";
+        document.getElementById("title").value = message ? message.title : "";
+        document.getElementById("body").value = message ? message.body : "";
+        document.getElementById("createdAt").value = message ? message.createdAt : todayISO();
+        document.getElementById("openAt").value = message ? message.openAt : todayISO();
+        document.getElementById("openAt").min = message ? "" : todayISO();
+        document.getElementById("category").value = message && categories.includes(message.category) ? message.category : categories[0];
+        document.getElementById("charCount").textContent = `${message ? message.body.length : 0} / 5000`;
+        document.getElementById("formTitle").textContent = message ? "Ubah pesanmu." : "Simpan kata-katamu.";
+        document.getElementById("formKicker").textContent = message ? "Edit pesan" : "Mulai menulis";
+        document.getElementById("saveButton").textContent = message ? "Simpan Perubahan" : "Simpan Pesan";
+        document.getElementById("compose").classList.add("visible");
+        document.getElementById("compose").scrollIntoView({ behavior: "smooth", block: "start" });
+        window.setTimeout(() => document.getElementById("sender").focus({ preventScroll: true }), 250);
+      };
+
+      const hideForm = () => {
+        document.getElementById("compose").classList.remove("visible");
+        document.getElementById("beranda").scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+
+      const editMessage = (id) => {
+        const message = messages.find((item) => item.id === id);
+        if (message) showForm(message);
+      };
+
+      const deleteMessage = (id) => {
+        const message = messages.find((item) => item.id === id);
+        if (!message || !window.confirm(`Hapus pesan “${message.title}”? Pesan yang dihapus tidak dapat dikembalikan.`)) return;
+        const previous = messages;
+        messages = messages.filter((item) => item.id !== id);
+        if (saveMessages()) {
+          renderMessages();
+          showToast("Pesan telah dihapus.");
+        } else {
+          messages = previous;
+          renderMessages();
+        }
+      };
+
+      const addText = (parent, tag, className, text) => {
+        const node = el(tag, className, text);
+        parent.append(node);
+        return node;
+      };
+
+      const addButton = (parent, label, className, onClick) => {
+        const button = el("button", className, label);
+        button.type = "button";
+        button.addEventListener("click", onClick);
+        parent.append(button);
+        return button;
+      };
+
+      const revealLetter = (message) => {
+        modalContent.replaceChildren();
+        addText(modalContent, "p", "modal-kicker", categories.includes(message.category) ? message.category : "Lainnya");
+        addText(modalContent, "h2", "serif", message.title).id = "modalTitle";
+        addText(modalContent, "p", "modal-meta", `Untuk ${message.recipient} · dibuat ${formatDate(message.createdAt)}`);
+
+        const letter = el("article", "letter");
+        addText(letter, "p", "letter-to", `Untuk ${message.recipient},`);
+        addText(letter, "p", "letter-intro", "Jika kamu membaca pesan ini, berarti waktu yang aku tentukan akhirnya tiba.");
+        addText(letter, "p", "letter-body", message.body);
+        addText(letter, "p", "letter-signature", `— ${message.sender}`);
+        modalContent.append(letter);
+
+        const actions = el("div", "modal-actions");
+        addButton(actions, "Salin Pesan", "button button-secondary", () => copyMessage(message));
+        addButton(actions, "Unduh .txt", "button button-secondary", () => exportMessage(message));
+        modalContent.append(actions);
+      };
+
+      const openMessage = (id) => {
+        const message = messages.find((item) => item.id === id);
+        if (!message) return;
+        lastFocusedElement = document.activeElement;
+        modalContent.replaceChildren();
+        addText(modalContent, "p", "modal-kicker", categories.includes(message.category) ? message.category : "Lainnya");
+        addText(modalContent, "h2", "serif", message.title).id = "modalTitle";
+        addText(modalContent, "p", "modal-meta", `Untuk ${message.recipient} · dibuat ${formatDate(message.createdAt)}`);
+
+        if (message.openAt > todayISO()) {
+          const locked = el("div", "locked-box");
+          locked.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
+          addText(locked, "p", "", "Pesan ini belum waktunya dibuka.");
+          addText(locked, "span", "", `Kembali lagi pada ${formatDate(message.openAt)}.`);
+          modalContent.append(locked);
+        } else {
+          const readyBox = el("div", "locked-box");
+          readyBox.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6.5h16v12H4z"/><path d="m4.5 7 7.5 6 7.5-6"/></svg>';
+          addText(readyBox, "p", "", "Waktunya tiba.");
+          addText(readyBox, "span", "", "Pesan ini sudah siap untukmu.");
+          const actions = el("div", "modal-actions");
+          addButton(actions, "Buka Pesan", "button", () => revealLetter(message));
+          modalContent.append(readyBox, actions);
+        }
+
+        modalBackdrop.classList.add("open");
+        document.body.style.overflow = "hidden";
+        document.getElementById("modalClose").focus();
+      };
+
+      const closeModal = () => {
+        modalBackdrop.classList.remove("open");
+        document.body.style.overflow = "";
+        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") lastFocusedElement.focus();
+      };
+
+      const copyMessage = async (message) => {
+        const text = `Untuk ${message.recipient},\n\nJika kamu membaca pesan ini, berarti waktu yang aku tentukan akhirnya tiba.\n\n${message.body}\n\n— ${message.sender}`;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const helper = document.createElement("textarea");
+            helper.value = text;
+            helper.setAttribute("readonly", "");
+            helper.style.position = "fixed";
+            helper.style.opacity = "0";
+            document.body.append(helper);
+            helper.select();
+            const copied = document.execCommand("copy");
+            helper.remove();
+            if (!copied) throw new Error("Browser tidak mengizinkan penyalinan.");
+          }
+          showToast("Pesan berhasil disalin.");
+        } catch (error) {
+          console.error("Pesan tidak dapat disalin.", error);
+          showToast("Pesan tidak dapat disalin. Coba pilih dan salin teks secara manual.");
+        }
+      };
+
+      const exportMessage = (message) => {
+        const text = `Untuk ${message.recipient},\n\nJika kamu membaca pesan ini, berarti waktu yang aku tentukan akhirnya tiba.\n\n${message.body}\n\n— ${message.sender}\n\nJudul: ${message.title}\nKategori: ${message.category}\nDibuat: ${formatDate(message.createdAt)}\nDibuka: ${formatDate(message.openAt)}\n`;
+        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${message.title.trim().replace(/[\\/:*?"<>|]+/g, "-").slice(0, 70) || "pesan"}.txt`;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        showToast("Pesan diekspor sebagai file .txt.");
+      };
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const id = document.getElementById("messageId").value;
+        const openAt = document.getElementById("openAt").value;
+        if (!id && openAt < todayISO()) {
+          document.getElementById("openAt").setCustomValidity("Tanggal buka tidak boleh sebelum hari ini.");
+          document.getElementById("openAt").reportValidity();
+          return;
+        }
+        document.getElementById("openAt").setCustomValidity("");
+        const existing = id ? messages.find((message) => message.id === id) : null;
+        const message = {
+          id: id || makeId(),
+          sender: document.getElementById("sender").value.trim(),
+          recipient: document.getElementById("recipient").value.trim(),
+          title: document.getElementById("title").value.trim(),
+          body: document.getElementById("body").value.trim(),
+          createdAt: existing ? existing.createdAt : document.getElementById("createdAt").value,
+          openAt,
+          category: document.getElementById("category").value
+        };
+        if (!message.sender || !message.recipient || !message.title || !message.body || !categories.includes(message.category)) {
+          showToast("Lengkapi semua bagian pesan sebelum menyimpan.");
+          return;
+        }
+        const previous = messages;
+        messages = existing ? messages.map((item) => item.id === id ? message : item) : [...messages, message];
+        if (saveMessages()) {
+          renderMessages();
+          form.reset();
+          hideForm();
+          showToast("Pesanmu telah disimpan.");
+        } else {
+          messages = previous;
+        }
+      });
+
+      document.getElementById("body").addEventListener("input", (event) => {
+        document.getElementById("charCount").textContent = `${event.target.value.length} / 5000`;
+      });
+      document.getElementById("openAt").addEventListener("input", (event) => event.target.setCustomValidity(""));
+      document.getElementById("backButton").addEventListener("click", hideForm);
+      document.querySelectorAll("[data-compose]").forEach((button) => button.addEventListener("click", () => showForm()));
+      document.getElementById("modalClose").addEventListener("click", closeModal);
+      modalBackdrop.addEventListener("click", (event) => {
+        if (event.target === modalBackdrop) closeModal();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modalBackdrop.classList.contains("open")) closeModal();
+      });
+
+      const applyTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        const dark = theme === "dark";
+        document.getElementById("themeToggle").setAttribute("aria-label", dark ? "Aktifkan mode terang" : "Aktifkan mode gelap");
+        document.getElementById("themeIcon").innerHTML = dark
+          ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>'
+          : '<path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"/>';
+      };
+      document.getElementById("themeToggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        applyTheme(next);
+        try {
+          localStorage.setItem(THEME_KEY, next);
+        } catch (error) {
+          console.error("Preferensi tema tidak dapat disimpan.", error);
+        }
+      });
+
+      let initialTheme = "light";
+      try {
+        initialTheme = localStorage.getItem(THEME_KEY) === "dark" ? "dark" : "light";
+      } catch (error) {
+        console.error("Preferensi tema tidak dapat dibaca.", error);
+      }
+      applyTheme(initialTheme);
+      messages = loadMessages();
+      renderMessages();
+    })();
+  </script>
+</body>
+</html>

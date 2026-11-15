@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" stroke="#D6D6D1" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Minimal Cratered Planet with Trajectory -->
+  <circle cx="80" cy="80" r="34" stroke="#D6D6D1" fill="#fcfbf8" />
+  <!-- Crater rings -->
+  <circle cx="68" cy="72" r="7" stroke-dasharray="2 3" opacity="0.8" />
+  <circle cx="94" cy="92" r="5" stroke-dasharray="1.5 2.5" opacity="0.8" />
+  <circle cx="90" cy="66" r="3" />
+  <path d="M54 90 Q80 106 106 100" />
+  <!-- Orbital arcs -->
+  <ellipse cx="80" cy="80" rx="66" ry="18" transform="rotate(35 80 80)" />
+</svg>
+
